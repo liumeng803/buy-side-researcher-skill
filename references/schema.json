@@ -1,0 +1,389 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://claude.local/skills/buy-side-researcher/references/schema.json",
+  "title": "买方投资研究员结构化数据模型",
+  "description": "用于校验 buy-side-researcher skill 的结构化输出。覆盖通用研究章节，并在周期模块激活时要求周期章节。",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "研究对象": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "公司名称": {
+              "type": "string",
+              "minLength": 1
+            },
+            "股票代码": {
+              "type": "string",
+              "minLength": 1
+            },
+            "交易市场": {
+              "type": "string",
+              "minLength": 1
+            },
+            "研究日期": {
+              "type": "string",
+              "format": "date"
+            },
+            "投资策略偏好": {
+              "type": "string",
+              "enum": [
+                "长期复利",
+                "周期反转",
+                "事件驱动"
+              ]
+            },
+            "行业类型": {
+              "type": "string",
+              "enum": [
+                "成长型",
+                "消费型",
+                "周期型",
+                "金融型",
+                "混合型"
+              ]
+            },
+            "周期模块": {
+              "type": "string",
+              "enum": [
+                "已激活",
+                "未激活"
+              ]
+            }
+          },
+          "required": [
+            "公司名称",
+            "股票代码",
+            "交易市场",
+            "研究日期",
+            "投资策略偏好",
+            "行业类型",
+            "周期模块"
+          ]
+        },
+        "周期信息": {
+          "type": "object",
+          "description": "周期模块激活时建议填写",
+          "additionalProperties": true,
+          "properties": {
+            "当前周期阶段": {
+              "type": "string",
+              "enum": [
+                "早期复苏",
+                "中期扩张",
+                "晚期繁荣",
+                "衰退",
+                "出清"
+              ]
+            },
+            "核心商品价格": {
+              "type": "string"
+            },
+            "行业产能利用率": {
+              "type": "string"
+            },
+            "边际成本": {
+              "type": "string"
+            },
+            "激励价格": {
+              "type": "string"
+            },
+            "10年均价": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "研究对象"
+      ]
+    },
+    "投资要点摘要": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "核心结论": {
+          "type": "string",
+          "minLength": 1
+        },
+        "建议行动": {
+          "type": "string",
+          "minLength": 1
+        },
+        "关键风险": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "关键待验证问题": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "核心结论",
+        "建议行动"
+      ]
+    },
+    "商业模式": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "护城河": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "需求侧与市场空间": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "利润池分析": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "组织文化": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "财务分析": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "市场共识与风险": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "创始人理解": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "多元视角": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "估值与结论": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "当前市值": {
+          "type": "string",
+          "minLength": 1
+        },
+        "估值合理性": {
+          "type": "string",
+          "enum": [
+            "便宜",
+            "合理",
+            "偏贵",
+            "泡沫",
+            "无法估值"
+          ]
+        },
+        "2x2结论": {
+          "$ref": "#/$defs/开放对象"
+        },
+        "买入触发条件": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "卖出触发条件": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "当前市值",
+        "估值合理性"
+      ]
+    },
+    "供需格局_周期": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "成本曲线_周期": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "资本周期_周期": {
+      "$ref": "#/$defs/开放对象"
+    },
+    "参考资料": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/来源项"
+      },
+      "minItems": 1
+    },
+    "下一步行动": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/行动项"
+      }
+    },
+    "反幻觉标注": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "未实证项": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "单来源项": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "数据口径说明": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "数据口径说明"
+      ]
+    }
+  },
+  "required": [
+    "meta",
+    "投资要点摘要",
+    "商业模式",
+    "护城河",
+    "需求侧与市场空间",
+    "利润池分析",
+    "组织文化",
+    "财务分析",
+    "市场共识与风险",
+    "创始人理解",
+    "多元视角",
+    "估值与结论",
+    "参考资料",
+    "下一步行动",
+    "反幻觉标注"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "meta": {
+            "properties": {
+              "研究对象": {
+                "properties": {
+                  "周期模块": {
+                    "const": "已激活"
+                  }
+                },
+                "required": [
+                  "周期模块"
+                ]
+              }
+            },
+            "required": [
+              "研究对象"
+            ]
+          }
+        },
+        "required": [
+          "meta"
+        ]
+      },
+      "then": {
+        "required": [
+          "供需格局_周期",
+          "成本曲线_周期",
+          "资本周期_周期"
+        ],
+        "properties": {
+          "meta": {
+            "required": [
+              "周期信息"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "开放对象": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "来源项": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "类型": {
+          "type": "string",
+          "enum": [
+            "年报/10-K/20-F",
+            "电话会",
+            "公告",
+            "权威媒体",
+            "研报",
+            "书籍",
+            "论文",
+            "大宗商品数据"
+          ]
+        },
+        "标题": {
+          "type": "string",
+          "minLength": 1
+        },
+        "来源": {
+          "type": "string",
+          "minLength": 1
+        },
+        "核心内容": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "类型",
+        "标题",
+        "来源"
+      ]
+    },
+    "行动项": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "类型": {
+          "type": "string",
+          "enum": [
+            "文件阅读",
+            "电话会议",
+            "竞品对比",
+            "运营指标跟踪",
+            "供给侧指标",
+            "需求侧指标",
+            "商品价格跟踪",
+            "阅读清单"
+          ]
+        },
+        "动作": {
+          "type": "string",
+          "minLength": 1
+        },
+        "具体目标": {
+          "type": "string"
+        },
+        "目的": {
+          "type": "string"
+        },
+        "数据来源": {
+          "type": "string"
+        },
+        "触发阈值": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "类型",
+        "动作"
+      ]
+    }
+  }
+}
