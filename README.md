@@ -4,17 +4,19 @@ Claude Code Skill for investment research. Automatically generates comprehensive
 
 ## 安装 (Installation)
 
-### 方法1: Claude Code 命令安装
-```
-/buy-side-researcher
-```
+### 方法1: Git Clone（推荐）
 
-### 方法2: Git Clone
 ```bash
-git clone https://github.com/liumeng803/buy-side-researcher-skill.git
+git clone https://github.com/liumeng803/buy-side-researcher-skill.git ~/.claude/skills/buy-side-researcher
 ```
 
-然后在Claude Code中配置skill路径。
+> Claude Code 的 Skill 机制要求将 SKILL.md 放在 `~/.claude/skills/<skill-name>/` 目录下。
+> 请确保最终路径为 `~/.claude/skills/buy-side-researcher/SKILL.md`，而非嵌套的子文件夹。
+
+### 方法2: 手动下载
+
+1. 点击 GitHub 仓库右上角的 **Code → Download ZIP**
+2. 解压后确保 SKILL.md 位于 `~/.claude/skills/buy-side-researcher/SKILL.md`
 
 ## 功能 (Features)
 
@@ -72,6 +74,14 @@ git clone https://github.com/liumeng803/buy-side-researcher-skill.git
 - 2×2结论框架
 - 具体可执行的买卖触发条件
 - 下一步行动清单
+
+## 常见问题
+
+**Q: 支持 `npx` 安装吗？**
+不支持。Claude Code 不使用 npx 安装 Skill，请使用 Git Clone 或手动下载。
+
+**Q: 安装后提示找不到 skill？**
+请确认 SKILL.md 路径正确：`ls ~/.claude/skills/buy-side-researcher/SKILL.md`
 
 ## License
 
